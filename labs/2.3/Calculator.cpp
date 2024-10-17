@@ -1,22 +1,22 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <stack>
 #include <cctype>
 #include <string>
 #include <stdexcept>
 using namespace std;
 
-// Функція для визначення пріоритету операторів
+// Р¤СѓРЅРєС†С–СЏ РґР»СЏ РІРёР·РЅР°С‡РµРЅРЅСЏ РїСЂС–РѕСЂРёС‚РµС‚Сѓ РѕРїРµСЂР°С‚РѕСЂС–РІ
 int precedence(char c) {
     if (c == '+' || c == '-') {
-        return 1; // Найнижчий пріоритет
+        return 1; // РќР°Р№РЅРёР¶С‡РёР№ РїСЂС–РѕСЂРёС‚РµС‚
     }
     else if (c == '*' || c == '/') {
-        return 2; // Вищий пріоритет
+        return 2; // Р’РёС‰РёР№ РїСЂС–РѕСЂРёС‚РµС‚
     }
-    return -1; // Невірний оператор
+    return -1; // РќРµРІС–СЂРЅРёР№ РѕРїРµСЂР°С‚РѕСЂ
 }
 
-// Функція для виконання арифметичної операції
+// Р¤СѓРЅРєС†С–СЏ РґР»СЏ РІРёРєРѕРЅР°РЅРЅСЏ Р°СЂРёС„РјРµС‚РёС‡РЅРѕС— РѕРїРµСЂР°С†С–С—
 int performOperation(char operation, int operand1, int operand2) {
     switch (operation) {
     case '+': return operand1 + operand2;
@@ -24,84 +24,84 @@ int performOperation(char operation, int operand1, int operand2) {
     case '*': return operand1 * operand2;
     case '/':
         if (operand2 == 0) {
-            throw invalid_argument("Ділення на нуль!"); // Перевірка на ділення на нуль
+            throw invalid_argument("Р”С–Р»РµРЅРЅСЏ РЅР° РЅСѓР»СЊ!"); // РџРµСЂРµРІС–СЂРєР° РЅР° РґС–Р»РµРЅРЅСЏ РЅР° РЅСѓР»СЊ
         }
         return operand1 / operand2;
-    default: throw invalid_argument("Невірний оператор!"); // Невідомий оператор
+    default: throw invalid_argument("РќРµРІС–СЂРЅРёР№ РѕРїРµСЂР°С‚РѕСЂ!"); // РќРµРІС–РґРѕРјРёР№ РѕРїРµСЂР°С‚РѕСЂ
     }
 }
 
-// Функція для перетворення інфіксного виразу в постфіксний
+// Р¤СѓРЅРєС†С–СЏ РґР»СЏ РїРµСЂРµС‚РІРѕСЂРµРЅРЅСЏ С–РЅС„С–РєСЃРЅРѕРіРѕ РІРёСЂР°Р·Сѓ РІ РїРѕСЃС‚С„С–РєСЃРЅРёР№
 string infixToPostfix(const string& expression) {
-    stack<char> operators; // Стек для зберігання операторів
-    string postfix; // Результуючий постфіксний вираз
+    stack<char> operators; // РЎС‚РµРє РґР»СЏ Р·Р±РµСЂС–РіР°РЅРЅСЏ РѕРїРµСЂР°С‚РѕСЂС–РІ
+    string postfix; // Р РµР·СѓР»СЊС‚СѓСЋС‡РёР№ РїРѕСЃС‚С„С–РєСЃРЅРёР№ РІРёСЂР°Р·
 
     for (char c : expression) {
         if (isdigit(c)) {
-            postfix += c; // Якщо це цифра, додаємо до постфіксного виразу
+            postfix += c; // РЇРєС‰Рѕ С†Рµ С†РёС„СЂР°, РґРѕРґР°С”РјРѕ РґРѕ РїРѕСЃС‚С„С–РєСЃРЅРѕРіРѕ РІРёСЂР°Р·Сѓ
         }
         else if (c == '+' || c == '-' || c == '*' || c == '/') {
-            // Видаляємо зі стеку оператори з вищим або рівним пріоритетом
+            // Р’РёРґР°Р»СЏС”РјРѕ Р·С– СЃС‚РµРєСѓ РѕРїРµСЂР°С‚РѕСЂРё Р· РІРёС‰РёРј Р°Р±Рѕ СЂС–РІРЅРёРј РїСЂС–РѕСЂРёС‚РµС‚РѕРј
             while (!operators.empty() && precedence(operators.top()) >= precedence(c)) {
                 postfix += operators.top();
                 operators.pop();
             }
-            operators.push(c); // Додаємо поточний оператор у стек
+            operators.push(c); // Р”РѕРґР°С”РјРѕ РїРѕС‚РѕС‡РЅРёР№ РѕРїРµСЂР°С‚РѕСЂ Сѓ СЃС‚РµРє
         }
     }
 
-    // Додаємо решту операторів зі стеку
+    // Р”РѕРґР°С”РјРѕ СЂРµС€С‚Сѓ РѕРїРµСЂР°С‚РѕСЂС–РІ Р·С– СЃС‚РµРєСѓ
     while (!operators.empty()) {
         postfix += operators.top();
         operators.pop();
     }
 
-    return postfix; // Повертаємо постфіксний вираз
+    return postfix; // РџРѕРІРµСЂС‚Р°С”РјРѕ РїРѕСЃС‚С„С–РєСЃРЅРёР№ РІРёСЂР°Р·
 }
 
-// Функція для обчислення постфіксного виразу
+// Р¤СѓРЅРєС†С–СЏ РґР»СЏ РѕР±С‡РёСЃР»РµРЅРЅСЏ РїРѕСЃС‚С„С–РєСЃРЅРѕРіРѕ РІРёСЂР°Р·Сѓ
 int evaluatePostfix(const string& expression) {
-    stack<int> operands; // Стек для зберігання операндів
+    stack<int> operands; // РЎС‚РµРє РґР»СЏ Р·Р±РµСЂС–РіР°РЅРЅСЏ РѕРїРµСЂР°РЅРґС–РІ
 
     for (char c : expression) {
         if (isdigit(c)) {
-            operands.push(c - '0'); // Перетворюємо символ цифри у ціле число
+            operands.push(c - '0'); // РџРµСЂРµС‚РІРѕСЂСЋС”РјРѕ СЃРёРјРІРѕР» С†РёС„СЂРё Сѓ С†С–Р»Рµ С‡РёСЃР»Рѕ
         }
         else if (c == '+' || c == '-' || c == '*' || c == '/') {
-            // Виймаємо два операнди зі стеку
+            // Р’РёР№РјР°С”РјРѕ РґРІР° РѕРїРµСЂР°РЅРґРё Р·С– СЃС‚РµРєСѓ
             int operand2 = operands.top(); operands.pop();
             int operand1 = operands.top(); operands.pop();
-            // Виконуємо операцію і додаємо результат у стек
+            // Р’РёРєРѕРЅСѓС”РјРѕ РѕРїРµСЂР°С†С–СЋ С– РґРѕРґР°С”РјРѕ СЂРµР·СѓР»СЊС‚Р°С‚ Сѓ СЃС‚РµРє
             int result = performOperation(c, operand1, operand2);
             operands.push(result);
         }
     }
 
-    return operands.top(); // Повертаємо результат обчислення
+    return operands.top(); // РџРѕРІРµСЂС‚Р°С”РјРѕ СЂРµР·СѓР»СЊС‚Р°С‚ РѕР±С‡РёСЃР»РµРЅРЅСЏ
 }
 
-// Головна функція програми
+// Р“РѕР»РѕРІРЅР° С„СѓРЅРєС†С–СЏ РїСЂРѕРіСЂР°РјРё
 int main() {
 
     setlocale(LC_ALL, "ukr");
     system("chcp 65001");
 
     string infixExpression;
-    cout << "Введіть інфіксний вираз: ";
+    cout << "Р’РІРµРґС–С‚СЊ С–РЅС„С–РєСЃРЅРёР№ РІРёСЂР°Р·: ";
     cin >> infixExpression;
 //gthtdshrf
     try {
-        // Перетворення інфіксного виразу в постфіксний
+        // РџРµСЂРµС‚РІРѕСЂРµРЅРЅСЏ С–РЅС„С–РєСЃРЅРѕРіРѕ РІРёСЂР°Р·Сѓ РІ РїРѕСЃС‚С„С–РєСЃРЅРёР№
         string postfixExpression = infixToPostfix(infixExpression);
-        cout << "Постфіксний вираз: " << postfixExpression << endl;
+        cout << "РџРѕСЃС‚С„С–РєСЃРЅРёР№ РІРёСЂР°Р·: " << postfixExpression << endl;
 
-        // Обчислення постфіксного виразу
+        // РћР±С‡РёСЃР»РµРЅРЅСЏ РїРѕСЃС‚С„С–РєСЃРЅРѕРіРѕ РІРёСЂР°Р·Сѓ
         int result = evaluatePostfix(postfixExpression);
-        cout << "Результат: " << result << endl;
+        cout << "Р РµР·СѓР»СЊС‚Р°С‚: " << result << endl;
     }
     catch (const exception& e) {
-        // Виведення повідомлення про помилку
-        cout << "Помилка: " << e.what() << endl;
+        // Р’РёРІРµРґРµРЅРЅСЏ РїРѕРІС–РґРѕРјР»РµРЅРЅСЏ РїСЂРѕ РїРѕРјРёР»РєСѓ
+        cout << "РџРѕРјРёР»РєР°: " << e.what() << endl;
     }
 
     return 0;
