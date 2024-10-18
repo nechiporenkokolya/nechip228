@@ -89,7 +89,7 @@ int main() {
     string infixExpression;
     cout << "Введіть інфіксний вираз: ";
     cin >> infixExpression;
-//gthtdshrf
+
     try {
         // Перетворення інфіксного виразу в постфіксний
         string postfixExpression = infixToPostfix(infixExpression);
