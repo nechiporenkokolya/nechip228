@@ -1,4 +1,4 @@
-/*#include <iostream>
+#include <iostream>
 using namespace std;
 
 int main() {
@@ -44,4 +44,4 @@ int main() {
         std::cout << "Wrong number!";
         break;
     }
-}*/
+}

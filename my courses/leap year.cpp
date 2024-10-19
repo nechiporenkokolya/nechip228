@@ -1,4 +1,4 @@
-/*#include <iostream>
+#include <iostream>
 #include <cmath>
 using namespace std;
 
@@ -12,16 +12,16 @@ int main() {
 
     if ((n / (pow(10, 3)) < 10 || (n / (pow(10, 3)) >= 1))) {
         if ((year % 4 == 0) || (year % 400 == 0)) {
-            std::cout << "Visokos\n";
+            std::cout << "Leap year\n";
         }
         else {
-            std::cout << "Ne visokos\n";
+            std::cout << "No leap year\n";
         }
     }
     else {
-        std::cout << "Число не четырехзначное\n";
+        std::cout << "Invalid input\n";
     }
-}*/
+}
 
 
 
