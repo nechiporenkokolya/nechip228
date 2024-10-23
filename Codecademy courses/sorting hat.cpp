@@ -125,16 +125,3 @@ int main() {
     std::cout << house << "!\n";
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

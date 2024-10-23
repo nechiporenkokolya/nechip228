@@ -22,11 +22,3 @@ int main() {
         std::cout << "Invalid input\n";
     }
 }
-
-
-
-
-
-
-
-
